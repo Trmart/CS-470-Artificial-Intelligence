@@ -27,3 +27,34 @@ map
 
 Where the map is an array of characters. Width and Height define the width and height of the map. StartX, StartY, GoalX, 
 and GoalY define the start and goal locations respectively. Note as a C++ programmer I have defined these positions 
+
+Character	Meaning	Movement Cost
+R	road	1
+f	field	2
+F	forest	4
+h	hills	5
+r	river	7
+M	mountains	10
+W	water	can't be entered
+After a successful search the program should do the following:
+
+Draw the path on the map.
+Denote all of the explored squares on the map.
+Denote the current open/frige list.
+Report the length of the path found.
+Report the cost of the path found.
+This does not require a graphical output (although that's probably best). You could draw a text version of the map (as in the sample file) and underline explored squares, bold open squares, and highlight squares on the successful path.
+Algorithms: You will need to test the following algorithms:
+
+Breadth first.
+Lowest cost.
+Greedy best first
+A* with at least two different heuristics.
+Experiments: For each algorithm you will need to do the following:
+
+Show that the algorithm works. In particular you should show, with an actual figure, both the cells explored by the algorithm and the route that the algorithm finds. Make sure that the figure clearly shows that the algorithm works. For example, if there is a mountain range that impedes movement show that the algorithm searches for paths around it.
+Write-up : For each of the search algorithms you should have a figure showing the explored cells, open cells, and path and you should report the length and cost of the found solution.
+
+Include a brief discussion section after the figures discussing the results. In particular how the algorithms compared in terms of the results and whether any of the algorithms appeard to work incorrectly.
+
+Attach your code.
