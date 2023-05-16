@@ -1,7 +1,7 @@
 ## Project #1 Pathfinding
-CS470/570
-Artificial Intelligence
-Summer 2023
+#### CS470/570
+#### Artificial Intelligence
+#### Summer 2023
 
 
 ## Background
