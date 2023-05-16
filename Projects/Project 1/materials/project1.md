@@ -1,8 +1,8 @@
-## CS470/570
-## Artificial Intelligence
-## Spring 2018
 ## Project #1 Pathfinding
-## Due: Friday, Febuary 9th
+CS470/570
+Artificial Intelligence
+Summer 2023
+
 
 ## Background
 
