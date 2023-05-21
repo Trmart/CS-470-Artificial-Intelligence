@@ -20,6 +20,7 @@ def main():
     
     env = Environment()
     env.print_environment()
+    env.save_map()
 
 if __name__ == "__main__":
     """

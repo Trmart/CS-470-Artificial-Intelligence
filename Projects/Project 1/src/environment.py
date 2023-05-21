@@ -24,6 +24,7 @@ class Environment:
         self.goal = []
         self.map_size = 0
         self.map_file = "project1_map.txt"
+        self.output_file = "project1_output.txt"
         self.map = []
         self.map = self.load_map(self.map_file)
         self.costs = { 'R': 1, 'f': 2, 'F': 4, 'h': 5, 'r': 7, 'M': 10, 'W': 100}
@@ -53,6 +54,32 @@ class Environment:
         map = map[3:]
         
         return map
+    
+    def save_map(self):
+        """
+        Save the map to a file
+        """
+        with open(self.output_file, 'w') as file:
+            
+            file.write(str(self.map_width) + " " + str(self.map_height) + "\n")
+            file.write(str(self.start[0]) + " " + str(self.start[1]) + "\n")
+            file.write(str(self.goal[0]) + " " + str(self.goal[1]) + "\n")
+            file.write(str(self.map_size) + "\n")
+            
+            for row in self.map:
+                for col in row:
+                    file.write(col + " ")
+                file.write("\n")
+            file.write(str())
+
+            file.write(f'{"Character:":15}{"Area:":10}{"Cost:":4}')
+        
+            i = 0
+            for key, value in self.costs.items():
+                file.write(f'{key:15}{self.area_names[i]:10}{value:4}')
+                i += 1
+            
+            file.close()
     
     def print_map(self):
         """
