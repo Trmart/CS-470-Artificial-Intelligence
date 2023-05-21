@@ -27,7 +27,7 @@ class Environment:
         self.output_file = "project1_output.txt"
         self.map = []
         self.map = self.load_map(self.map_file)
-        self.costs = { 'R': 1, 'f': 2, 'F': 4, 'h': 5, 'r': 7, 'M': 10, 'W': 100}
+        self.costs = { 'R': 1, 'f': 2, 'F': 4, 'h': 5, 'r': 7, 'M': 10, 'W': -1}
         self.area_names = ["Road", "Field", "Forest", "Hills", "River", "Mountain", "Water"]
 
     def load_map(self, map_file):
@@ -61,22 +61,24 @@ class Environment:
         """
         with open(self.output_file, 'w') as file:
             
-            file.write(str(self.map_width) + " " + str(self.map_height) + "\n")
-            file.write(str(self.start[0]) + " " + str(self.start[1]) + "\n")
-            file.write(str(self.goal[0]) + " " + str(self.goal[1]) + "\n")
-            file.write(str(self.map_size) + "\n")
+            file.write("Map Width: " + str(self.map_width) + "\n" + "Map Hight: " + str(self.map_height) + "\n")
+            file.write("Starting Point: " + str(self.start[0]) + " " + str(self.start[1]) + "\n")
+            file.write("Goal Point: " + str(self.goal[0]) + " " + str(self.goal[1]) + "\n")
+            file.write("Map Size: " + str(self.map_size) + "\n")
             
+            file.write("\nMap: \n")
             for row in self.map:
                 for col in row:
                     file.write(col + " ")
                 file.write("\n")
             file.write(str())
 
-            file.write(f'{"Character:":15}{"Area:":10}{"Cost:":4}')
+            file.write(f'\nState Costs:\n\n')
+            file.write(f'{"Character:":15}{"Area:":10}{"Cost:":4}\n')
         
             i = 0
             for key, value in self.costs.items():
-                file.write(f'{key:15}{self.area_names[i]:10}{value:4}')
+                file.write(f'{key:15}{self.area_names[i]:10}{value:4}\n')
                 i += 1
             
             file.close()

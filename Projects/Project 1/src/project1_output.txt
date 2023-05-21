@@ -1,7 +1,10 @@
-15 20
-7 0
-7 18
-300
+Map Width: 15
+Map Hight: 20
+Starting Point: 7 0
+Goal Point: 7 18
+Map Size: 300
+
+Map: 
 MMMhhffffffffff 
 MMMMMhhffffffff 
 hMMMhhhffFFFfff 
@@ -22,4 +25,14 @@ hffffffRRRRRRRR
 Mhhffffffffffff 
 Mhhffffffffffff 
 MMhhhffffffffff 
-Character:     Area:     Cost:R              Road         1f              Field        2F              Forest       4h              Hills        5r              River        7M              Mountain    10W              Water      100
+
+State Costs:
+
+Character:     Area:     Cost:
+R              Road         1
+f              Field        2
+F              Forest       4
+h              Hills        5
+r              River        7
+M              Mountain    10
+W              Water       -1
