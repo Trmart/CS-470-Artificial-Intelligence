@@ -96,6 +96,118 @@ class Agent:
                     print(self.env.get_map()[y][x], end="")
             print()
     
+    def save_path_to_file(self, output_file):
+        """
+        Save the agent path to a file.
+        """
+
+        with open(output_file, 'w') as file:
+            file.write("*******************BFS Agent Path***********************\n")
+            file.write("Map Size: " + str(self.env.get_map_size()) + "\n")
+            file.write("Map Width: " + str(self.env.get_map_width()) + "\n" + "Map Hight: " + str(self.env.get_map_height()) + "\n")
+            file.write("Starting Point: " + str(self.env.get_start()) + "\n")
+            file.write("Goal Point: " + str(self.env.get_goal()) + "\n")
+            
+            file.write(f'\nState Costs:\n\n')
+            file.write(f'{"Character:":15}{"Area:":10}{"Cost:":4}\n')
+        
+            i = 0
+            for key, value in self.env.get_costs().items():
+                file.write(f'{key:15}{self.env.area_names[i]:10}{value:4}\n')
+                i += 1
+
+            file.write("\n\nAgent Symbol Legend:\n")
+            file.write("S = Start\n")
+            file.write("G = Goal\n")
+            file.write("* = Path\n")
+            file.write("# = Open List\n")
+            
+            path = self.get_path()
+            print("\n\nAgent Path: " + str(path))
+
+            print("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
+
+            #path cost is correct
+            print("\n\nPath Cost: " + str(self.path_cost))
+
+            # I think path length is correct. there are 27 nodes in the path list
+            print("\n\nPath Length: " + str(self.path_length))
+            file.write("\nPath: \n")
+            
+
+            for y in range(0,self.env.get_map_height()):
+                for x in range(0,self.env.get_map_width()):
+                    if (x,y) == self.env.get_start():
+                        file.write("S")
+                    elif (x,y) == self.env.get_goal():
+                        file.write("G")
+                    elif (x,y) in self.get_path():
+                        file.write("*")
+                    elif (x,y) in self.open_list:
+                        file.write("#")
+                    else:
+                        file.write(self.env.get_map()[y][x])
+                file.write('\n')
+
+            
+            file.close()
+    
+    def save_explored_to_file(self, output_file):
+        """
+        save the explored path to file
+        """
+
+        with open(output_file, 'w') as file:
+            
+            file.write("*******************BFS Agent Nodes Explored***********************\n")
+            file.write("Map Size: " + str(self.env.get_map_size()) + "\n")
+            file.write("Map Width: " + str(self.env.get_map_width()) + "\n" + "Map Hight: " + str(self.env.get_map_height()) + "\n")
+            file.write("Starting Point: " + str(self.env.get_start()) + "\n")
+            file.write("Goal Point: " + str(self.env.get_goal()) + "\n")
+            
+            file.write(f'\nState Costs:\n\n')
+            file.write(f'{"Character:":15}{"Area:":10}{"Cost:":4}\n')
+        
+            i = 0
+            for key, value in self.env.get_costs().items():
+                file.write(f'{key:15}{self.env.area_names[i]:10}{value:4}\n')
+                i += 1
+            
+            file.write("\n\nAgent Symbol Legend:\n")
+            file.write("S = Start\n")
+            file.write("G = Goal\n")
+            file.write("* = Path\n")
+            file.write("$ = Closed List\n")
+
+            path = self.get_path()
+            print("\n\nExplored Nodes: " + str(path))
+
+            print("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
+
+            #path cost is correct
+            print("\n\nPath Cost: " + str(self.path_cost))
+
+            # I think path length is correct. there are 27 nodes in the path list
+            print("\n\nPath Length: " + str(self.path_length))
+            file.write("\nPath: \n")
+            
+
+            for y in range(0,self.env.get_map_height()):
+                for x in range(0,self.env.get_map_width()):
+                    if (x,y) == self.env.get_start():
+                        file.write("S")
+                    elif (x,y) == self.env.get_goal():
+                        file.write("G")
+                    elif (x,y) in self.get_path():
+                        file.write("*")
+                    elif (x,y) in self.closed_list:
+                        file.write("$")
+                    else:
+                        file.write(self.env.get_map()[y][x])
+                file.write('\n')
+            
+        file.close()
+    
     def get_state_cost(self, state):
         """
         Get state cost

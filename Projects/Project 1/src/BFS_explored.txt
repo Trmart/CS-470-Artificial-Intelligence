@@ -1,0 +1,46 @@
+*******************BFS Agent Nodes Explored***********************
+Map Size: (15, 20)
+Map Width: 15
+Map Hight: 20
+Starting Point: (7, 0)
+Goal Point: (7, 18)
+
+State Costs:
+
+Character:     Area:     Cost:
+R              Road         1
+f              Field        2
+F              Forest       4
+h              Hills        5
+r              River        7
+M              Mountain    10
+W              Water        0
+
+
+Agent Symbol Legend:
+S = Start
+G = Goal
+* = Path
+$ = Closed List
+
+Path: 
+$$$$$$$S$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$$$$*$$$$$$$
+$$$$****$$$$$$$
+$$$**WWWWW$$$$$
+$$$*WWWWWWWW$$$
+$$$*$$WWWWWWW$$
+$$$*$$$$$$WW$$$
+$$$*$$$$$$$$$$$
+$$$*$$$$$$$$$$$
+$$$*$$$$$$$$$$$
+$$$*$$$$ff$$$$$
+$$$****Gfff$$$$
+$$$$$$$fffff$$$

@@ -41,6 +41,9 @@ def main():
     print("\n\nPath: ")
     agent.print_path()
 
+    agent.save_path_to_file("BFS_path.txt")
+    agent.save_explored_to_file("BFS_explored.txt")
+
     
 
 if __name__ == "__main__":
