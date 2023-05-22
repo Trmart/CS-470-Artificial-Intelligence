@@ -27,6 +27,16 @@ class Agent:
         self.closed_list = set()
         self.open_list = []
 
+    def clear_lists(self):
+        """
+        Clear lists
+        """
+        self.path = {}
+        self.path_cost = 0
+        self.path_length = 0
+        self.closed_list = set()
+        self.open_list = []
+    
     def is_goal(self, state):
         """
         Check if state is goal
@@ -102,7 +112,7 @@ class Agent:
         """
 
         with open(output_file, 'w') as file:
-            file.write("*******************BFS Agent Path***********************\n")
+            file.write("*******************Agent Path***********************\n")
             file.write("Map Size: " + str(self.env.get_map_size()) + "\n")
             file.write("Map Width: " + str(self.env.get_map_width()) + "\n" + "Map Hight: " + str(self.env.get_map_height()) + "\n")
             file.write("Starting Point: " + str(self.env.get_start()) + "\n")
@@ -123,16 +133,16 @@ class Agent:
             file.write("# = Open List\n")
             
             path = self.get_path()
-            print("\n\nAgent Path: " + str(path))
+            file.write("\n\nAgent Path: " + str(path))
 
-            print("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
+            file.write("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
 
             #path cost is correct
-            print("\n\nPath Cost: " + str(self.path_cost))
+            file.write("\n\nPath Cost: " + str(self.path_cost))
 
             # I think path length is correct. there are 27 nodes in the path list
-            print("\n\nPath Length: " + str(self.path_length))
-            file.write("\nPath: \n")
+            file.write("\n\nPath Length: " + str(self.path_length))
+            file.write("\n\nPath: \n")
             
 
             for y in range(0,self.env.get_map_height()):
@@ -159,7 +169,7 @@ class Agent:
 
         with open(output_file, 'w') as file:
             
-            file.write("*******************BFS Agent Nodes Explored***********************\n")
+            file.write("*******************Agent Nodes Explored***********************\n")
             file.write("Map Size: " + str(self.env.get_map_size()) + "\n")
             file.write("Map Width: " + str(self.env.get_map_width()) + "\n" + "Map Hight: " + str(self.env.get_map_height()) + "\n")
             file.write("Starting Point: " + str(self.env.get_start()) + "\n")
@@ -180,18 +190,17 @@ class Agent:
             file.write("$ = Closed List\n")
 
             path = self.get_path()
-            print("\n\nExplored Nodes: " + str(path))
+            file.write("\n\nAgent Path: " + str(path))
 
-            print("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
+            file.write("\n\nNumber of Nodes Explored: " + str(self.closed_list.__len__()))
 
             #path cost is correct
-            print("\n\nPath Cost: " + str(self.path_cost))
+            file.write("\n\nPath Cost: " + str(self.path_cost))
 
             # I think path length is correct. there are 27 nodes in the path list
-            print("\n\nPath Length: " + str(self.path_length))
-            file.write("\nPath: \n")
+            file.write("\n\nPath Length: " + str(self.path_length))
             
-
+            file.write("\n\nPath: \n")
             for y in range(0,self.env.get_map_height()):
                 for x in range(0,self.env.get_map_width()):
                     if (x,y) == self.env.get_start():
@@ -273,7 +282,24 @@ class Agent:
         else:
             return False
     
-    def expand_node(self, state):
+    def is_in_openlist(self, state):
+        for i in self.open_list:
+            if state == i[0]:
+                return True
+        return False
+    
+    def fringe_higher(self, state, cost, append=True):
+        for i in self.open_list:
+            if state == i[0]:
+                if i[1] >= cost:
+                    self.remove_from_openlist(i)
+                    if append:
+                        self.add_to_openlist(state, cost)
+                    return True
+                else:
+                    return False
+                
+    def expand_node(self, state, sort = False, reverse = False):
         """
         Expand node
         """
@@ -292,6 +318,11 @@ class Agent:
             if self.is_valid_state(neighbor):
                 result.append(neighbor)
         
+            if sort:
+                result.sort(key=lambda state: self.get_state_cost(state))
+            if reverse:
+                result.reverse()
+
         return result
 
     def euclidean_distance(self, state):
@@ -302,7 +333,6 @@ class Agent:
         x2, y2 = self.env.get_goal()
         
         return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-    
 
     def manhattan_distance(self, state):
         """
@@ -339,11 +369,13 @@ class Agent:
         
         return None
 
-    def lowest_cost_search(self):
+    def lowest_cost_search(self, heuristic = "manhattan"):
         """
-        Lowest Cost Search
+        Lowest Cost Search, aka Uniform Cost Search
         """
-    
+
+        node , cost = self.a_star_search(heuristic)
+        return node
     
     def greedy_best_first_search(self):
 
@@ -352,26 +384,39 @@ class Agent:
         """
     
     
-    def a_star_search(self):
+    def a_star_search(self, heuristic = "manhattan"):
         """
         A* Search
         """
-    
+        self.add_to_openlist(self.env.get_start(),0)
 
-    # After a successful search the program should do the following:
+        while self.open_list:
+            parent, cost = self.get_next_open_list_head()
 
-    # Draw the path on the map.
-    # Denote all of the explored squares on the map.
-    # Denote the current open/frige list.
-    # Report the length of the path found.
-    # Report the cost of the path found.
-    # This does not require a graphical output (although that's probably best). You could draw a text version of the map (as in the sample file) and underline explored squares, bold open squares, and highlight squares on the successful path.
-    # Algorithms: You will need to test the following algorithms:
+            if self.is_goal(parent):
+                for state in self.get_path():
+                    self.path_cost += self.get_state_cost(state)
+                self.path_length = len(self.get_path())
+                return parent,cost
+            
+            self.add_to_closedlist(parent)
 
-    # Breadth first.
-    # Lowest cost.
-    # Greedy best first
-    # A* with at least two different heuristics.
-    # Experiments: For each algorithm you will need to do the following:
+            for child in self.expand_node(parent):
+                
+                if heuristic == "manhattan":
+                    child_cost = cost + self.get_state_cost(child) + self.manhattan_distance(child)
+                if heuristic == "euclidean":
+                    child_cost = cost + self.get_state_cost(child) + self.euclidean_distance(child)
 
-    # Show that the algorithm works. In particular you should show, with an actual figure, both the cells explored by the algorithm and the route that the algorithm finds. Make sure that the figure clearly shows that the algorithm works. For example, if there is a mountain range that impedes movement show that the algorithm searches for paths around it.
+                if child not in self.closed_list:
+                    if not self.is_in_openlist(child):
+                        self.record_agent_path(parent, child)
+                        self.add_to_openlist(child, child_cost)
+                elif self.fringe_higher(child, child_cost):
+                    self.record_agent_path(parent, child)
+                    self.remove_from_closedlist(child)
+            
+            ## sort openlist is ascending order of state costs
+            self.open_list.sort(key=lambda x: x[1])
+        
+        return None
