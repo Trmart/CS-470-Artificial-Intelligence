@@ -18,9 +18,35 @@ def main():
     """
 
     
-    env = Environment()
-    env.print_environment()
-    env.save_map()
+    # env = Environment()
+    # env.print_environment()
+
+    #for testing retrival of costs
+    # test = env.get_individual_costs('f')
+    # print("\n\n" + str(test))
+    
+    
+    # env.save_map()
+
+    agent = Agent()
+
+    agent.env.print_environment()
+
+    goal = agent.breadth_first_search()
+    print("\n\nGoal: " + str(goal))
+
+    path = agent.get_path()
+    print("\n\nPath: " + str(path))
+    print("\n\n Path Cost: " + str(agent.path_cost))
+    print("\n\n Path Length: " + str(agent.path_length))
+    
+    print("\n\nExplored: ")
+    agent.print_explored()
+    
+    print("\n\nPath: ")
+    agent.print_path()
+
+    
 
 if __name__ == "__main__":
     """

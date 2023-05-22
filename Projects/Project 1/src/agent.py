@@ -8,7 +8,6 @@
 # --------------------
 
 from environment import Environment
-import copy # for deepcopy -> cpy_list = copy.deepcopy(org_list)
 
 class Agent:
     
@@ -16,21 +15,199 @@ class Agent:
     Agent Class 
     """
 
-    def __init__(self, env):
+    def __init__(self):
         """
         Constructor
         """
-        self.env = env
-        self.path = []
+        self.env = Environment()
+        self.path = {}
         self.path_cost = 0
         self.path_length = 0
-        self.explored = []
-        self.frontier = []
+        self.closed_list = set()
+        self.open_list = []
 
+    def is_goal(self, state):
+        """
+        Check if state is goal
+        """
+        if state == self.env.get_goal():
+            return True
+        else:
+            return False
+    
+    def is_not_explored(self, state):
+        """
+        Check if state is not explored
+        """
+        return (state not in self.open_list and state not in self.closed_list)
+        
+    def record_agent_path(self, parent, child):
+        """
+        Record agent path
+        """
+        self.path[child] = parent
+
+    def get_path(self):
+        """
+        Get path
+        """
+        path = [self.env.get_goal()]
+        
+        while path[-1] != self.env.get_start():
+            path.append(self.path[path[-1]])
+        path.reverse()
+        
+        return tuple(path)
+    
+    def print_path(self):
+        """
+        Print path
+        """
+        for y in range(0,self.env.get_map_height()):
+            for x in range(0,self.env.get_map_width()):
+                if (x,y) == self.env.get_start():
+                    print("S", end="")
+                elif (x,y) == self.env.get_goal():
+                    print("G", end="")
+                elif (x,y) in self.get_path():
+                    print("*", end="")
+                # elif (x,y) in self.open_list:
+                #     print("#", end="")
+                # elif (x,y) in self.closed_list:
+                #     print("$", end="")
+                else:
+                    print(self.env.get_map()[y][x], end="")
+            print()
+
+    def print_explored(self):
+        """
+        Print path
+        """
+        for y in range(0,self.env.get_map_height()):
+            for x in range(0,self.env.get_map_width()):
+                if (x,y) == self.env.get_start():
+                    print("S", end="")
+                elif (x,y) == self.env.get_goal():
+                    print("G", end="")
+                elif (x,y) in self.get_path():
+                    print("*", end="")
+                elif (x,y) in self.closed_list:
+                    print("$", end="")
+                else:
+                    print(self.env.get_map()[y][x], end="")
+            print()
+    
+    def get_state_cost(self, state):
+        """
+        Get state cost
+        """
+        x,y = state
+        return self.env.get_individual_costs([self.env.get_map[y][x]])
+    
+    def add_to_openlist(self, state, cost = None):
+        """
+        Add to open list
+        """
+        if cost is not None:
+            self.open_list.append([state, cost])
+        else:
+            self.open_list.append(state)
+
+    def add_to_closedlist(self, state):
+        """
+        Add to closed list
+        """
+        self.closed_list.add(state)
+    
+    def remove_from_openlist(self, index):
+        """
+        Remove from open list
+        """
+        self.open_list.pop(self.open_list.index(index))
+    
+    def remove_from_closedlist(self, state):
+        """
+        Remove from closed list
+        """
+        try:
+            self.closed_list.remove(state)
+        except KeyError:
+            pass
+    
+    def get_next_open_list_head(self):
+        """
+        Get next open list head
+        """
+        return self.open_list.pop(0)
+    
+    def get_next_open_list_tail(self):
+        """
+        Get next open list tail
+        """
+        return self.open_list.pop()
+    
+    def is_valid_state(self, state):
+        """
+        Check if state is valid
+        """ 
+        x, y = state
+        # print("x: " + str(x) + " y: " + str(y))
+        
+        if (x >= 0 and 
+            y >= 0 and 
+            x < self.env.get_map_width() and 
+            y < self.env.get_map_height() and 
+            self.env.get_map()[y][x] != 'W'):
+            return True
+        else:
+            return False
+    
+    def expand_node(self, state):
+        """
+        Expand node
+        """
+        result = []
+
+        x, y = state
+
+        neighbors = (
+                        (x, y-1),
+                        (x, y+1),
+                        (x+1, y),
+                        (x-1, y)
+                    )
+        
+        for neighbor in neighbors:
+            if self.is_valid_state(neighbor):
+                result.append(neighbor)
+        
+        return result
+
+    
     def breadth_first_search(self):
         """
         Breadth First Search
         """
+        self.add_to_openlist(self.env.get_start())
+        # print(self.open_list)
+        
+        while self.open_list:
+            
+            parent = self.get_next_open_list_head()
+            # print(parent)
+            
+            if self.is_goal(parent):
+                self.path_cost = parent[1]
+                self.path_length = len(self.get_path())
+                return parent
+            
+            for child in self.expand_node(parent):
+                if self.is_not_explored(child):
+                    self.record_agent_path(parent, child)
+                    self.add_to_openlist(child)
+            self.add_to_closedlist(parent)
+        
+        return None
 
     def lowest_cost_search(self):
         """
