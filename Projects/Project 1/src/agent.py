@@ -8,6 +8,7 @@
 # --------------------
 
 from environment import Environment
+import math
 
 class Agent:
     
@@ -181,7 +182,25 @@ class Agent:
         
         return result
 
+    def euclidean_distance(self, state):
+        """
+        Euclidean distance / Straight line distance
+        """
+        x1, y1 = state
+        x2, y2 = self.env.get_goal()
+        
+        return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
     
+
+    def manhattan_distance(self, state):
+        """
+        Manhattan distance / Taxicab distance
+        """
+        x1, y1 = state
+        x2, y2 = self.env.get_goal()
+        
+        return (abs(x1 - x2) + abs(y1 - y2))
+
     def breadth_first_search(self):
         """
         Breadth First Search
