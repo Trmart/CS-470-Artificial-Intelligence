@@ -71,8 +71,8 @@ class Agent:
                     print("G", end="")
                 elif (x,y) in self.get_path():
                     print("*", end="")
-                # elif (x,y) in self.open_list:
-                #     print("#", end="")
+                elif (x,y) in self.open_list:
+                    print("#", end="")
                 # elif (x,y) in self.closed_list:
                 #     print("$", end="")
                 else:
@@ -102,7 +102,7 @@ class Agent:
         Get state cost
         """
         x,y = state
-        return self.env.get_individual_costs([self.env.get_map[y][x]])
+        return self.env.get_costs()[self.env.get_map()[y][x]]
     
     def add_to_openlist(self, state, cost = None):
         """
@@ -197,7 +197,8 @@ class Agent:
             # print(parent)
             
             if self.is_goal(parent):
-                self.path_cost = parent[1]
+                for state in self.get_path():
+                    self.path_cost += self.get_state_cost(state)
                 self.path_length = len(self.get_path())
                 return parent
             

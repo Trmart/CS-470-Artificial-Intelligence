@@ -37,8 +37,14 @@ def main():
 
     path = agent.get_path()
     print("\n\nPath: " + str(path))
-    print("\n\n Path Cost: " + str(agent.path_cost))
-    print("\n\n Path Length: " + str(agent.path_length))
+
+    print("\n\nNumber of Nodes Explored: " + str(agent.closed_list.__len__()))
+
+    #path cost is correct
+    print("\n\nPath Cost: " + str(agent.path_cost))
+
+    # I think path length is correct. there are 27 nodes in the path list
+    print("\n\nPath Length: " + str(agent.path_length))
     
     print("\n\nExplored: ")
     agent.print_explored()

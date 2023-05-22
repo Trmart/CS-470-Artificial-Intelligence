@@ -113,6 +113,7 @@ class Environment:
                     print(self.get_map()[y][x], end="")
             print()
 
+
     
     
     def print_map_path(self, path):
