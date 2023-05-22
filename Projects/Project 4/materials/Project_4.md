@@ -1,7 +1,16 @@
+## Project #4 Prolog Genealogy
+#### CS470/570
+#### Artificial Intelligence
+#### Summer 2023
+
+
+## Background
+
 Prolog is a logical programming based on a variant of 1st order logic. To 'program' in Prolog you create a knowledge base of facts and rules about the problem. Then you may query the knowledge base. Prolog uses a modified backchaining algorithm to search the knowledge base in an attempt to prove the query.
 
 Free versions of Prolog are available. I would recommend the one produced by the GNU Foundation, available at http://www.gprolog.org/Links to an external site..
 
+## Project : Write a program to answer genealogy questions.
 For this project you need to create a knowledge base that defines the rules of Genealogy - i.e. that 'understands' family relationships. Specifically the knowledge base should contain rules that define:
 
 parent
@@ -19,7 +28,8 @@ The exact syntax of the rules are up to you. For example, you may define relatio
 
 In addition to creating the knowledge base, you should, of course, test it. For example, make sure it can identify all parents, all relations of a given person, all siblings, etc.
 
-Write-up : Write your results as a paper. Plan on ~3 pages, including sample output. The paper should include the following:
+## Write-up : 
+Write your results as a paper. Plan on ~3 pages, including sample output. The paper should include the following:
 
 An abstract summarizing what you did and what the results were.
 A description of the general syntax of your knowledge base works. What is the general form of the rules, examples of rules, etc.
