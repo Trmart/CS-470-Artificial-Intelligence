@@ -36,27 +36,15 @@ class Environment:
         """
         
         map = []
-        
-        # with open(map_file) as file:
-        #     for line in file:
-        #         map.append(line.split())
 
         with open(map_file, 'r') as f:
             map = f.readlines()
-        
-        # self.map_width = int(map[0][0])
-        
-        # self.map_height = int(map[0][1])
-        
-        # self.start = [int(map[1][0]), int(map[1][1])]
-        
-        # self.goal = [int(map[2][0]), int(map[2][1])]
+            f.close()
 
         self.map_size = tuple([int(i) for i in map[0].split()])
         self.start = tuple([int(i) for i in map[1].split()])
         self.goal = tuple([int(i) for i in map[2].split()])
         
-        # self.map_size = self.map_width * self.map_height
         self.map_width = self.map_size[0]
         self.map_height = self.map_size[1]
         
@@ -66,9 +54,12 @@ class Environment:
     
     def read_map(self, contents):
         """ Makes a tuple of tuple map from contents."""
+        
         input_map = []
+        
         for i in range(0, self.get_map_height()):
             input_map.append(tuple(list(contents[i])[:self.get_map_width()]))
+        
         return tuple(input_map)
     
     def save_map(self):
@@ -114,19 +105,6 @@ class Environment:
             print()
 
 
-    
-    
-    def print_map_path(self, path):
-        """
-        Prints the map with the path
-        """
-        for i in range(len(self.map)):
-            for j in range(len(self.map[i])):
-                if [i, j] in path:
-                    print("X", end=" ")
-                else:
-                    print(self.map[i][j], end=" ")
-            print()
 
     def get_map(self):
         """

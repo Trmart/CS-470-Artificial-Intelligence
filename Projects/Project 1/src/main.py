@@ -7,7 +7,6 @@
 # @brief    This file contains the main project function to run application
 # --------------------
 
-from environment import Environment
 from agent import Agent
 
 def main():
@@ -17,16 +16,6 @@ def main():
 
     """
 
-    
-    # env = Environment()
-    # env.print_environment()
-
-    #for testing retrival of costs
-    # test = env.get_individual_costs('f')
-    # print("\n\n" + str(test))
-    
-    
-    # env.save_map()
 
     agent = Agent()
 

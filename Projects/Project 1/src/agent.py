@@ -73,8 +73,6 @@ class Agent:
                     print("*", end="")
                 elif (x,y) in self.open_list:
                     print("#", end="")
-                # elif (x,y) in self.closed_list:
-                #     print("$", end="")
                 else:
                     print(self.env.get_map()[y][x], end="")
             print()
@@ -214,11 +212,14 @@ class Agent:
         """
         Lowest Cost Search
         """
+    
+    
     def greedy_best_first_search(self):
 
         """
         Greedy Best First Search
         """
+    
     
     def a_star_search(self):
         """
