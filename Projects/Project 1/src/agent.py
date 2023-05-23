@@ -369,7 +369,7 @@ class Agent:
         
         return None
 
-    def lowest_cost_search(self, heuristic = "manhattan"):
+    def lowest_cost_search(self, heuristic = "uniform"):
         """
         Lowest Cost Search, aka Uniform Cost Search
         """
@@ -380,8 +380,42 @@ class Agent:
     def greedy_best_first_search(self):
 
         """
-        Greedy Best First Search
+        Greedy Best First Search 
         """
+
+        self.add_to_openlist(self.env.get_start(),0)
+
+        while self.open_list:
+            parent, cost = self.get_next_open_list_head()
+
+            if self.is_goal(parent):
+                for state in self.get_path():
+                    self.path_cost += self.get_state_cost(state)
+                self.path_length = len(self.get_path())
+                return parent,cost
+            
+            self.add_to_closedlist(parent)
+            
+            ## sort the closed list, which is a set, by the heuristic
+            self.closed_list = set(sorted(self.closed_list, key=lambda x: self.manhattan_distance(x)))
+
+            for child in self.expand_node(parent):
+                
+
+                child_cost = self.manhattan_distance(child)
+
+                if child not in self.closed_list:
+                    if not self.is_in_openlist(child):
+                        self.record_agent_path(parent, child)
+                        self.add_to_openlist(child, child_cost)
+                elif self.fringe_higher(child, child_cost):
+                    self.record_agent_path(parent, child)
+                    self.remove_from_closedlist(child)
+            
+            ## sort openlist is ascending order of state costs
+            self.open_list.sort(key=lambda x: x[1])
+        
+        return None
     
     
     def a_star_search(self, heuristic = "manhattan"):
@@ -407,6 +441,8 @@ class Agent:
                     child_cost = cost + self.get_state_cost(child) + self.manhattan_distance(child)
                 if heuristic == "euclidean":
                     child_cost = cost + self.get_state_cost(child) + self.euclidean_distance(child)
+                if heuristic == "uniform":
+                    child_cost = cost + self.get_state_cost(child)
 
                 if child not in self.closed_list:
                     if not self.is_in_openlist(child):

@@ -1,0 +1,55 @@
+*******************Agent Nodes Explored***********************
+Map Size: (15, 20)
+Map Width: 15
+Map Hight: 20
+Starting Point: (7, 0)
+Goal Point: (7, 18)
+
+State Costs:
+
+Character:     Area:     Cost:
+R              Road         1
+f              Field        2
+F              Forest       4
+h              Hills        5
+r              River        7
+M              Mountain    10
+W              Water        0
+
+
+Agent Symbol Legend:
+S = Start
+G = Goal
+* = Path
+$ = Closed List
+
+
+Agent Path: ((7, 0), (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (7, 9), (6, 9), (5, 9), (4, 9), (4, 10), (3, 10), (3, 11), (3, 12), (3, 13), (3, 14), (3, 15), (3, 16), (3, 17), (3, 18), (4, 18), (5, 18), (6, 18), (7, 18))
+
+Number of Nodes Explored: 37
+
+Path Cost: 70
+
+Path Length: 27
+
+Path: 
+MMMhhffSfffffff
+MMMMMhh*fffffff
+hMMMhhh*fFFFfff
+fhMhffF*FFFFFff
+fhhhffF*FFFFFFF
+ffffFFF*FFFFfff
+rrrrfFF*FFFffff
+fffrrf$*$Ffffff
+RRffr$$*$$FFfff
+fRff****$$$FFff
+fRf**WWWWW$$FFF
+fRf*WWWWWWWWFFF
+fRR*ffWWWWWWWrr
+ffR*RRffffWWfff
+fff*fRRRfffffff
+fff*fffRfffffff
+hff*fffRRRRRRRR
+Mhh*fffffffffff
+Mhh****Gfffffff
+MMhhhffffffffff

@@ -24,29 +24,29 @@ G = Goal
 # = Open List
 
 
-Agent Path: ((7, 0), (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (7, 9), (6, 9), (5, 9), (4, 9), (4, 10), (3, 10), (3, 11), (3, 12), (3, 13), (4, 13), (5, 13), (5, 14), (6, 14), (7, 14), (7, 15), (7, 16), (7, 17), (7, 18))
+Agent Path: ((7, 0), (7, 1), (7, 2), (7, 3), (6, 3), (5, 3), (5, 4), (4, 4), (4, 5), (3, 5), (2, 5), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (2, 12), (2, 13), (3, 13), (4, 13), (5, 13), (5, 14), (6, 14), (7, 14), (7, 15), (7, 16), (7, 17), (7, 18))
 
-Number of Nodes Explored: 217
+Number of Nodes Explored: 241
 
-Path Cost: 63
+Path Cost: 58
 
-Path Length: 27
+Path Length: 31
 
 Path: 
 MMMhhffSfffffff
 MMMMMhh*fffffff
 hMMMhhh*fFFFfff
-fhMhffF*FFFFFff
-fhhhffF*FFFFFFF
-ffffFFF*FFFFfff
-rrrrfFF*FFFffff
-fffrrff*FFfffff
-RRffrrr*FFFFfff
-fRff****FFFFFff
-fRf**WWWWWFFFFF
-fRf*WWWWWWWWFFF
-fRR*ffWWWWWWWrr
-ffR***ffffWWfff
+fhMhf***FFFFFff
+fhhh**FFFFFFFFF
+f****FFFFFFFfff
+r*rrfFFFFFFffff
+f*frrffFFFfffff
+R*ffrrrfFFFFfff
+f*ffffrFFFFFFff
+f*fffWWWWWFFFFF
+f*ffWWWWWWWWFFF
+f**fffWWWWWWWrr
+ff****ffffWWfff
 fffff***fffffff
 fffffff*fffffff
 hffffff*RRRRRRR
