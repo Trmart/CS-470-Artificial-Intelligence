@@ -9,17 +9,23 @@
 # --------------------
 
 # Imports
-from board import Board
+import sys
+import interface
+from game import Game
 
 def main():
     """Main function"""
-    # Create a new game
-        # game = Game()
-    # Play the game
-        # game.play()
-    board = Board()
-    board.print_board()
+
+    colors = ('Blue', 'Green')
+
+    game_interface = interface.CLI(colors)
+
+    player_types = game_interface.get_players()
+
+    game = Game(game_interface, colors, player_types)
+
+    game.play()
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
     

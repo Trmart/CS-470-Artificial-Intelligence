@@ -32,30 +32,35 @@ class Board():
         """
         self.height = MAX_ROWS
         self.width = MAX_COLS
-        self.board = [[None for i in range(self.width)] for j in range(self.height)]
+        self.board = []
+        for _ in range(self.width):
+            self.board.append([None] * self.height)
         self.interface = interface
 
+    # def print_board(self):
+    #     """
+    #     This function prints the board.
+    #     """
+    #     for i in range(MAX_ROWS):
+    #         for j in range(MAX_COLS):
+    #             if(self.board[i][j] == 'B'):
+    #                 # self.interface.draw_red_circle(j,i)
+    #                 blue = "\u001b[34m"
+    #                 pass
+    #             elif(self.board[i][j] == 'G'):
+    #                 green = "\u001b[32m"
+    #                 # self.interface.draw_yellow_circle(j,i)
+    #                 pass
+    #             else:
+    #                 # self.interface.draw_white_circle(j,i)
+    #                 green = "\u001b[32m"
+    #                 # print("_", end=" ")
+    #                 print("_", end=" | ")
+    #             # print(self.board[i][j], end=" ")
+    #         print("\n----------------------------")
+
     def print_board(self):
-        """
-        This function prints the board.
-        """
-        for i in range(MAX_ROWS):
-            for j in range(MAX_COLS):
-                if(self.board[i][j] == 'B'):
-                    # self.interface.draw_red_circle(j,i)
-                    blue = "\u001b[34m"
-                    pass
-                elif(self.board[i][j] == 'G'):
-                    green = "\u001b[32m"
-                    # self.interface.draw_yellow_circle(j,i)
-                    pass
-                else:
-                    # self.interface.draw_white_circle(j,i)
-                    green = "\u001b[32m"
-                    # print("_", end=" ")
-                    print("_", end=" | ")
-                # print(self.board[i][j], end=" ")
-            print("\n----------------------------")
+        self.interface.print_board(self)
     
     def get_board(self):
         """
@@ -91,22 +96,43 @@ class Board():
         Returns:
             True if the board is full, False otherwise.
         """
-        for i in range(MAX_ROWS):
-            for j in range(MAX_COLS):
+        for i in range(self.get_height()):
+            for j in range(self.get_width()):
                 if self.board[i][j] == None:
                     return False
         return True
     
     def is_valid_move(self,move, board=None):
         """Returns True if the move is valid, False otherwise."""
-        if board == None:
+        
+        if board is None:
             board = self.get_board()
-        if move < 0 or move >= MAX_COLS:
-            return False
-        if board[0][move] != None:
-            return False
-        return True
+        if move < self.width:
+            row = self.get_next_empty_row(move, board)
+            if row is None:
+                return None
+            if board[move][row] is None:
+                return row
+        else:
+            return None
+        
+    def get_next_empty_row(self, move, board):
+        """Returns the next empty row in the column."""
+        for row, value in enumerate(board[move]):
+            if value is None:
+                return row
+        return None
     
+    def make_move(self, move, color):
+        """Makes the move on the board."""
+        
+        row = self.is_valid_move(move)
+        
+        if  row is not None:
+            self.board[move][row] = color
+            return (move,row)
+        
+        raise Exception("Invalid move: column is full.")
     
     def is_win(self, color):
         """
@@ -117,26 +143,26 @@ class Board():
         """
         
         #horizontal
-        for i in range(MAX_ROWS):
-            for j in range(MAX_COLS-3):
+        for i in range(self.get_width()-3):
+            for j in range(self.get_height()):
                 if self.board[i][j] == color and self.board[i][j+1] == color and self.board[i][j+2] == color and self.board[i][j+3] == color:
                     return True
         
         #vertical
-        for i in range(MAX_ROWS-3):
-            for j in range(MAX_COLS):
+        for i in range(self.get_width()):
+            for j in range(self.get_height()-3):
                 if self.board[i][j] == color and self.board[i+1][j] == color and self.board[i+2][j] == color and self.board[i+3][j] == color:
                     return True
         
         #diagonal
-        for i in range(MAX_ROWS-3):
-            for j in range(MAX_COLS-3):
+        for i in range(self.get_width()-3):
+            for j in range(self.get_height()-3):
                 if self.board[i][j] == color and self.board[i+1][j+1] == color and self.board[i+2][j+2] == color and self.board[i+3][j+3] == color:
                     return True
                 
         #diagonal
-        for i in range(MAX_ROWS-3):
-            for j in range(3, MAX_COLS):
+        for i in range(self.get_width()-3):
+            for j in range(3, self.get_height()):
                 if self.board[i][j] == color and self.board[i+1][j-1] == color and self.board[i+2][j-2] == color and self.board[i+3][j-3] == color:
                     return True
         
