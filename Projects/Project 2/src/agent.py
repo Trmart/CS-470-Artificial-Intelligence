@@ -60,15 +60,15 @@ class Agent():
             
             if (self.board.is_valid_move(column, self.board.get_board()) is not None):
                 
-                state = self.make_fake_move(self.board.get_board(),column, player)
+                state = self.simulate_move(self.board.get_board(),column, player)
                 
                 legal_moves[column] = -self.search(state, depth-1, opponent)
         
         return max(legal_moves.items(), key=operator.itemgetter(1))
 
-    def make_fake_move(self, state, column, color):
+    def simulate_move(self, state, column, color):
         """
-        Makes a fake move.
+       Simulates a move.
 
         Args:
             state (list): The state of the board.
@@ -101,7 +101,7 @@ class Agent():
         
         for column in range(self.board.width):
             if self.board.is_valid_move(column, state) is not None:
-                legal_moves.append(self.make_fake_move(state, column, player))
+                legal_moves.append(self.simulate_move(state, column, player))
 
         if depth == 0 or legal_moves is None or self.game_over(state):
             return self.value(state, player)

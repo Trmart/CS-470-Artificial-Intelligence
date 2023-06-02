@@ -62,7 +62,7 @@ class Computer(Player):
     """"
     This class represents a computer player.
     """
-    def __init__(self, color, colors, interface, difficulty = 1000):
+    def __init__(self, color, colors, interface, difficulty = 10000):
         """"
         The constructor for the computer class. It calls the parent constructor.
         
