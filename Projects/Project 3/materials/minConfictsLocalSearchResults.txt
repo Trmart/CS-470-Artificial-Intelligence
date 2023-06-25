@@ -1,0 +1,76 @@
+Max Colors: 4
+Max Steps: 1,000
+Failed to find a valid coloring.
+Process time: 0.019404172897338867 seconds
+
+Max Colors: 4
+Max Steps: 10,000
+Failed to find a valid coloring.
+Process time: 0.17055416107177734 seconds
+
+Max Colors: 4
+Max Steps: 100,000
+Failed to find a valid coloring.
+Process time: 1.1574528217315674 seconds
+
+Max Colors: 4
+Max Steps: 1,000,000
+Failed to find a valid coloring.
+Process time: 12.999605655670166 seconds
+
+
+Max Colors: 10
+Max Steps: 1,000
+Failed to find a valid coloring.
+Process time: 0.013815879821777344 seconds
+
+
+Max Colors: 10
+Max Steps: 10,000
+Failed to find a valid coloring.
+Process time: 0.16142964363098145 seconds
+
+
+Max Colors: 10
+Max Steps: 100,000
+Failed to find a valid coloring.
+Process time: 1.378983736038208 seconds
+
+Max Colors: 10
+Max Steps: 1,000,000
+Failed to find a valid coloring.
+Process time: 315.74072265625 seconds
+
+
+
+Max Colors: 1,000
+Max Steps: 100,000
+Failed to find a valid coloring.
+Process time: 33.1605019569397 seconds
+
+
+
+Max Colors: 1,000
+Max Steps: 1,000,000
+Failed to find a valid coloring.
+Process time: 320.75973558425903 seconds
+
+
+Max Colors: 10,000
+Max Steps: 100,000
+Failed to find a valid coloring.
+Process time: 316.0044102668762 seconds
+
+
+Max Colors: 100,000
+Max Steps: 10,000
+Failed to find a valid coloring.
+Process time: 14.569950580596924 seconds
+
+
+
+Max Colors: 100,000
+Max Steps: 100,000
+Failed to find a valid coloring.
+Process time: 3114.9191942214966 seconds
+
